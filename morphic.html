@@ -4,7 +4,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Morphic!</title>
 		<script type="text/javascript" src="morphic.js"></script>
-		<script type="text/javascript">			
+		<script type="text/javascript">
 
 			var	worldCanvas, world, hi, hint1, hint2;
 
@@ -19,6 +19,7 @@
 				hi.isDraggable = true;
 				hi.isEditable = true;
 				hi.setPosition(new Point(275, 200));
+				hi.placeholder = 'hi';
 				world.add(hi);
 
 				hint1 = new StringMorph(
@@ -26,14 +27,24 @@
 				hint1.isDraggable = true;
 				hint1.isEditable = true;
 				hint1.setPosition(new Point(350, 270));
+				hint1.placeholder = 'text';
 				world.add(hint1);
-				
+
 				hint2 = new StringMorph(
 					'(or double touch)', 10, 'sans-serif');
 				hint2.isDraggable = true;
 				hint2.isEditable = true;
 				hint2.setPosition(hint1.bottomLeft());
+				hint2.placeholder = 'string placeholder...';
 				world.add(hint2);
+
+				text = new TextMorph(
+					'text', 40, 'serif');
+				text.isDraggable = true;
+				text.isEditable = true;
+				text.setPosition(new Point(400, 100));
+				text.placeholder = 'placeholder...';
+				world.add(text);
 
                 loop();
 			};
