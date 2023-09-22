@@ -8641,7 +8641,7 @@ StringMorph.prototype.font = function () {
     if (this.isBold) {
         font = font + 'bold ';
     }
-    if (this.isItalic || this.text == '') {
+    if (this.isItalic || this.placeholder && this.text == '') {
         font = font + 'italic ';
     }
     return font +
@@ -9422,7 +9422,7 @@ TextMorph.prototype.fixLayout = function () {
 
     this.parse();
 
-    let lines = this.placeholder && (this.lines.length <= 1 && this.lines[0] == ' ') ?
+    var lines = this.placeholder && (this.lines.length <= 1 && this.lines[0] == ' ') ?
                     [this.placeholder] : this.lines;
 
     // set my extent
@@ -9453,7 +9453,7 @@ TextMorph.prototype.render = function (ctx) {
         shadowColor = this.getShadowRenderColor(),
         i, line, width, offx, offy, x, y, start, stop, p, c;
 
-    let lines = this.placeholder && (this.lines.length <= 1 && this.lines[0] == ' ') ?
+    var lines = this.placeholder && (this.lines.length <= 1 && this.lines[0] == ' ') ?
                     [this.placeholder] : this.lines;
 
     // prepare context for drawing text
