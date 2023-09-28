@@ -9354,6 +9354,10 @@ TextMorph.prototype.parse = function () {
     this.lineSlots = [0];
     this.words = [];
 
+    if (this.placeholder && this.text == '') {
+        paragraphs = [this.placeholder]
+    }
+
     paragraphs.forEach(p => {
         this.words = this.words.concat(p.split(' '));
         this.words.push('\n');
@@ -9407,13 +9411,6 @@ TextMorph.prototype.parse = function () {
             slot += word.length + 1;
         }
     });
-
-    if (this.placeholder && (this.lines.length <= 1 && this.lines[0] == ' ')) {
-        this.maxLineWidth = Math.max(
-            this.maxLineWidth,
-            context.measureText(this.placeholder).width
-        );
-    }
 };
 
 TextMorph.prototype.fixLayout = function () {
@@ -9422,13 +9419,10 @@ TextMorph.prototype.fixLayout = function () {
 
     this.parse();
 
-    var lines = this.placeholder && (this.lines.length <= 1 && this.lines[0] == ' ') ?
-                    [this.placeholder] : this.lines;
-
     // set my extent
     shadowWidth = Math.abs(this.shadowOffset.x);
     shadowHeight = Math.abs(this.shadowOffset.y);
-    height = lines.length * (fontHeight(this.fontSize) + shadowHeight);
+    height = this.lines.length * (fontHeight(this.fontSize) + shadowHeight);
     if (this.maxWidth === 0) {
         this.bounds = this.bounds.origin.extent(
             new Point(this.maxLineWidth + shadowWidth, height)
@@ -9453,9 +9447,6 @@ TextMorph.prototype.render = function (ctx) {
         shadowColor = this.getShadowRenderColor(),
         i, line, width, offx, offy, x, y, start, stop, p, c;
 
-    var lines = this.placeholder && (this.lines.length <= 1 && this.lines[0] == ' ') ?
-                    [this.placeholder] : this.lines;
-
     // prepare context for drawing text
     ctx.font = this.font();
     ctx.textAlign = 'left';
@@ -9473,8 +9464,8 @@ TextMorph.prototype.render = function (ctx) {
         offy = Math.max(this.shadowOffset.y, 0);
         ctx.fillStyle = shadowColor.toString();
 
-        for (i = 0; i < lines.length; i = i + 1) {
-            line = lines[i];
+        for (i = 0; i < this.lines.length; i = i + 1) {
+            line = this.lines[i];
             width = ctx.measureText(line).width + shadowWidth;
             if (this.alignment === 'right') {
                 x = this.width() - width;
@@ -9494,8 +9485,8 @@ TextMorph.prototype.render = function (ctx) {
     offy = Math.abs(Math.min(this.shadowOffset.y, 0));
     ctx.fillStyle = this.getRenderColor().toString();
 
-    for (i = 0; i < lines.length; i = i + 1) {
-        line = lines[i];
+    for (i = 0; i < this.lines.length; i = i + 1) {
+        line = this.lines[i];
         width = ctx.measureText(line).width + shadowWidth;
         if (this.alignment === 'right') {
             x = this.width() - width;
@@ -9582,6 +9573,10 @@ TextMorph.prototype.slotAt = function (aPoint) {
         shadowHeight = Math.abs(this.shadowOffset.y),
         ctx = this.measureCtx,
         textWidth;
+
+    if (this.placeholder && this.text == '') {
+        return this.lineSlots[0]
+    }
 
     while (aPoint.y - this.top() >
             ((fontHeight(this.fontSize) + shadowHeight) * row)) {
