@@ -7814,6 +7814,7 @@ InspectorMorph.prototype.buildPanes = function () {
         var menu = new MenuMorph(this);
         menu.addItem("save", 'save', 'accept changes');
         menu.addLine();
+        menu.addItem("run", 'runWork');
         menu.addItem("add property...", 'addProperty');
         menu.addItem("rename...", 'renameProperty');
         menu.addItem("remove...", 'removeProperty');
@@ -7915,6 +7916,19 @@ InspectorMorph.prototype.fixLayout = function () {
 };
 
 // InspectorMorph editing ops:
+
+InspectorMorph.prototype.runWork = function () {
+    var textArea,
+        text,
+        fun;
+
+    textArea = this.work.childThatIsA(TextMorph);
+    text = textArea.text;
+
+    fun = new Function(text);
+
+    fun.call(this.target);
+}
 
 InspectorMorph.prototype.save = function () {
     var txt = this.detail.contents.children[0].text.toString(),
