@@ -20,6 +20,7 @@
 				hi.isEditable = true;
 				hi.setPosition(new Point(275, 200));
 				hi.placeholder = 'hi';
+				hi.fixLayout();
 				world.add(hi);
 
 				hint1 = new StringMorph(
@@ -28,6 +29,7 @@
 				hint1.isEditable = true;
 				hint1.setPosition(new Point(350, 270));
 				hint1.placeholder = 'text';
+				hint1.fixLayout();
 				world.add(hint1);
 
 				hint2 = new StringMorph(
@@ -36,6 +38,7 @@
 				hint2.isEditable = true;
 				hint2.setPosition(hint1.bottomLeft());
 				hint2.placeholder = 'string placeholder...';
+				hint2.fixLayout();
 				world.add(hint2);
 
 				text = new TextMorph(
@@ -45,6 +48,7 @@
 				text.setPosition(new Point(400, 100));
 				text.placeholder = 'placeholder...';
 				text.maxWidth = 100
+				text.fixLayout();
 				world.add(text);
 
                 loop();
