@@ -8683,6 +8683,11 @@ StringMorph.prototype.fixLayout = function (justMe) {
             this.parent.fixLayout();
         }
     }
+
+    if (this.cursorStyle == null && this.isEditable) {
+        this.cursorStyle = 'text';
+        this.cursorGrabStyle = 'grabbing';
+    }
 };
 
 StringMorph.prototype.render = function (ctx) {
@@ -9440,6 +9445,11 @@ TextMorph.prototype.fixLayout = function () {
         if (this.parent.layoutChanged) {
             this.parent.layoutChanged();
         }
+    }
+
+    if (this.cursorStyle == null && this.isEditable) {
+        this.cursorStyle = 'text';
+        this.cursorGrabStyle = 'grabbing';
     }
 };
 
@@ -11628,7 +11638,7 @@ HandMorph.prototype.processMouseMove = function (event) {
         mouseOverBoundsNew,
         morph,
         topMorph;
-    
+
     this.cursorStyle = null;
 
     pos = new Point(
@@ -11739,7 +11749,7 @@ HandMorph.prototype.processMouseMove = function (event) {
         this.cursorStyle = this.morphToGrab.cursorGrabStyle || this.morphToGrab.cursorStyle;
     }
     if (this.cursorStyle == null) {
-    
+
         for (const morph of this.mouseOverList) {
             if (morph.cursorStyle != null) {
                 this.cursorStyle = morph.cursorStyle;
