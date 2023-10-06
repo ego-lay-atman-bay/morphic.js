@@ -6,13 +6,13 @@
 		<script type="text/javascript" src="morphic.js"></script>
 		<script type="text/javascript">
 
-			var	worldCanvas, world, hi, hint1, hint2;
+			var	worldCanvas, thisIsAWorld, hi, hint1, hint2;
 
 			window.onload = function () {
 				worldCanvas = document.getElementById('world');
-				world = new WorldMorph(worldCanvas);
+				thisIsAWorld = new WorldMorph(worldCanvas);
                 // +++ world.worldCanvas.focus();
-				world.isDevMode = true;
+				thisIsAWorld.isDevMode = true;
 
 				hi = new StringMorph(
 					'Hello, World!', 48, 'serif');
@@ -21,7 +21,7 @@
 				hi.setPosition(new Point(275, 200));
 				hi.placeholder = 'hi';
 				hi.fixLayout();
-				world.add(hi);
+				thisIsAWorld.add(hi);
 
 				hint1 = new StringMorph(
 					'right click...', 20, 'serif');
@@ -30,7 +30,7 @@
 				hint1.setPosition(new Point(350, 270));
 				hint1.placeholder = 'text';
 				hint1.fixLayout();
-				world.add(hint1);
+				thisIsAWorld.add(hint1);
 
 				hint2 = new StringMorph(
 					'(or double touch)', 10, 'sans-serif');
@@ -39,7 +39,7 @@
 				hint2.setPosition(hint1.bottomLeft());
 				hint2.placeholder = 'string placeholder...';
 				hint2.fixLayout();
-				world.add(hint2);
+				thisIsAWorld.add(hint2);
 
 				text = new TextMorph(
 					'text', 40, 'serif');
@@ -49,14 +49,14 @@
 				text.placeholder = 'placeholder...';
 				text.maxWidth = 100
 				text.fixLayout();
-				world.add(text);
+				thisIsAWorld.add(text);
 
                 loop();
 			};
 
 			function loop() {
                             requestAnimationFrame(loop);
-                            world.doOneCycle();
+                            thisIsAWorld.doOneCycle();
 			};
 		</script>
 	</head>
